@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getJobById } from "../store/slices/jobsSlice";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { useEffect, useState } from "react";
@@ -16,7 +16,6 @@ const SingleJob = () => {
     if (!jobid) {
         return <div>No job found</div>;
     }
-    const navigate = useNavigate();
     const { user } = useAppSelector((state) => state.auth);
     const { currentJob, isLoading } = useAppSelector((state) => state.jobs);
     const { userApplications } = useAppSelector((state) => state.applications);
@@ -38,7 +37,7 @@ const SingleJob = () => {
         if (!resumeUrl) return;
         try {
             await dispatch(
-                applyToJobs({ jobId: jobid, data: { resumeUrl } })
+                applyToJobs({ jobId: jobid, data: { resumeUrl } }),
             ).unwrap();
             setApplyStatus("Application submitted!");
         } catch (err: any) {
@@ -114,7 +113,7 @@ const SingleJob = () => {
             </div>
             <span
                 className={`${getJobTypeColor(
-                    currentJob.employmentType
+                    currentJob.employmentType,
                 )} inline-block px-3 py-1 rounded-full text-xs font-medium capitalize  mb-4 `}
             >
                 {currentJob.employmentType.replace("-", " ")}
@@ -127,7 +126,7 @@ const SingleJob = () => {
                     {currentJob.createdAt
                         ? formatDate(
                               new Date(currentJob.createdAt),
-                              "dd MMM yyyy"
+                              "dd MMM yyyy",
                           )
                         : "N/A"}
                 </span>

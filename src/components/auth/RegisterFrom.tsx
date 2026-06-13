@@ -11,7 +11,6 @@ import {
     Mail,
     Search,
     User,
-    UserSearch,
 } from "lucide-react";
 
 type FormData = {
@@ -53,7 +52,7 @@ const RegisterFrom = () => {
                 email: formData.email,
                 password: formData.password,
                 role: formData.role,
-            })
+            }),
         );
     };
 
